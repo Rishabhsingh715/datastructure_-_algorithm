@@ -1,0 +1,34 @@
+
+//algo states that find the smallest element of A[lo] or A[hi] at a point and then check if it is smaller or greater than lf or rt or it is first time you are changing lf or rt, if small then we can
+// fill the water therefore we subtract from lf or rt to get amount of water it can hold.
+
+
+
+class Solution {
+    public int trap(int[] height) {
+        int result = 0;
+        
+        int lf =0 , rt = 0;          // two pointers on left and right side for taking on account of the biggest height on left and right;
+        int n = height.length;
+        int lo = 0 , hi = n-1;
+        
+        while( lo <= hi){
+            if(height[lo] < height[hi] ){       
+                if(height[lo] > lf){         //remember because of above if statement the height[lo] is smaller than the height[hi];
+                    lf = height[lo];
+                }else{
+                    result += lf - height[lo];  //remember because of above if statement the height[lo] is smaller than the height[hi];
+                }
+                lo++;
+            }else{
+                if(height[hi] > rt){
+                    rt = height[hi];
+                }else{
+                    result += rt - height[hi];
+                }
+                hi--;
+            }
+        }
+        return result;
+    }
+}

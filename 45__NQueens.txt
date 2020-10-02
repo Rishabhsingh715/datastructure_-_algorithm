@@ -1,0 +1,97 @@
+ public class Solution {
+     
+    public List<List<String>> solveNQueens(int a) {
+        
+        List<List<String>> list = new ArrayList<List<String>>();
+        
+        if(a == 1){                               //can place only one queen at 1*1 matrix;
+            List<String> g = new ArrayList<>();
+            g.add("Q");
+            list.add(new ArrayList<String>(g));
+            return list;
+        }
+        if(a == 2 || a == 3){        //can't place 2 or 3 queens in a 2*2 or 3*3 matrix respectively;
+            return list;
+        }
+       
+        int[][] board = new int[a][a];
+        for(int i=0; i<a; i++){
+            for(int j=0; j<a; j++){
+                board[i][j] = 0;
+                
+            }
+        }
+      boolean tt = solveQueen(board,0,a,list);
+     
+        return list;
+    }
+    
+    static boolean isSafe(int[][] board,int i,int j,int n){
+        
+        for(int row=0; row<n; row++){       //checking the column safe;
+            if(board[row][j] ==1){
+                return false;
+            }
+        }
+        
+        int x = i;
+        int y = j;
+        while(x>=0 && y>=0){                  //checking diagonal safe left diagonal;
+            if(board[x][y] == 1){
+                return false;
+            }
+            x--;
+            y--;
+        }
+        
+        x = i;
+        y = j;
+        
+        while(x>=0 && y<n){                //checking diagonal safe right diagonal;
+            if(board[x][y] == 1){
+                return false;
+            }
+            x--;
+            y++;
+        }
+        return true;
+    }
+    
+    static boolean solveQueen(int[][] board,int i,int n,List<List<String>> list){
+     List<String> al = new ArrayList<>();
+
+        if(i == n){                         //this is done at last;
+            for(int f=0; f<n; f++){
+                String ss = "";
+                for(int j=0; j<n; j++){
+                    if(board[f][j] == 1){
+                     ss = ss+"Q";
+                    //System.out.print("Q");
+                    }else{
+                        ss = ss+".";
+                   // System.out.print(".");
+                      }
+                } al.add(ss);
+            }
+            list.add(al);
+            return false; // this is 2nd backtracking i did, i returned false, thus now it goes and checks for another answer.Because question asked for all possible answers;
+        }
+        
+        
+                                              //this starts first;
+
+        for(int j = 0; j<n; j++){             //this helps to find position of queen in a row. if true we place and if not, then we go and check for j+1 i.e. next place in the row.
+           if(isSafe(board,i,j,n)){
+               board[i][j] = 1;
+               
+               boolean canPlace = solveQueen(board,i+1,n,list);
+               if(canPlace){
+                   return true;
+               }
+               board[i][j] = 0;
+           }
+        } // here loop ends for any one row and not found any place for queen. Then we backtrack;
+        return false;  // backtrack;
+        
+    }
+}
