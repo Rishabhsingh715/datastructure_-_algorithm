@@ -1,0 +1,42 @@
+// It is also called BFS;
+
+
+class Node {
+    Node left;
+    Node right;
+    int data;
+    
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+
+class Solution {
+
+	
+	public static void levelOrder(Node root) {
+        Queue<Node> que = new ArrayDeque<>();
+
+        que.add(root);
+
+        while(!que.isEmpty()){
+            Node tempNode = que.poll(); 
+            System.out.print(tempNode.data + " "); 
+  
+            
+            if (tempNode.left != null) { 
+                que.add(tempNode.left); 
+            } 
+  
+            
+            if (tempNode.right != null) { 
+                que.add(tempNode.right); 
+            } 
+        }
+      
+      
+    }
+
+	public static Node insert(Node root, int data) {

@@ -1,0 +1,49 @@
+used a deque for keeping track of recently used value ;
+used hashmap to store the key value;
+
+class LRUCache {
+        private Deque<Integer> doublyQueue; 
+        HashMap<Integer, Integer> hash_map;
+        private final int CACHE_SIZE;
+
+    public LRUCache(int capacity) {
+         doublyQueue = new LinkedList<>(); 
+         hash_map = new HashMap<Integer, Integer>(); 
+         CACHE_SIZE = capacity;    
+    }
+    
+    public int get(Integer key) {
+       if(hash_map.containsKey(key)){
+           doublyQueue.remove(key);
+           doublyQueue.push(key);
+           return hash_map.get(key);
+       }else{
+           return -1;
+       }
+    }
+    
+    public void put(Integer key, Integer value) {
+        if(!hash_map.containsKey(key)){
+            if(doublyQueue.size() == CACHE_SIZE){
+                int last = doublyQueue.removeLast(); 
+                hash_map.remove(last);
+                
+            }
+            hash_map.put(key,value);
+            doublyQueue.push(key);
+        }
+        if(hash_map.containsKey(key)){
+            doublyQueue.remove(key);
+            hash_map.put(key,value);
+            doublyQueue.push(key);
+        }
+        
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */

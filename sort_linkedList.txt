@@ -1,0 +1,63 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if(head == null || head.next == null) return head;
+        
+             ListNode middle = mid(head);
+             ListNode left = sortList(head);
+             ListNode right = sortList(middle);
+         return merge(left, right);
+         
+        }
+    
+    static ListNode merge(ListNode h1, ListNode h2){
+        
+        ListNode temp = new ListNode(0);
+        ListNode head = temp;
+        
+        while(h1 != null && h2 != null){
+            if(h1.val < h2.val){
+                head.next = h1;
+                h1 = h1.next;
+                head = head.next;  // need to increase head by 1 node;
+            }else{
+                head.next = h2;
+                h2 = h2.next;
+                head = head.next; // need to increase head by 1 node;
+            }
+        }
+            if(h1 != null){
+                head.next = h1;
+            }else{
+                head.next = h2;
+            }
+        
+        return temp.next;
+    }
+    
+  static ListNode mid(ListNode head){
+        ListNode fast = head;       
+        ListNode slow = null;      //Actually we are finding one node previous to middle node so that we can make it to point null, thus our LinkedList would be divived into two equal halves. One from head to this node(one previous than mid), 2nd from next of this node(one previous than mid) to last node;
+        
+        
+        while(fast != null && fast.next != null){
+            
+            slow = (slow == null) ? head : slow.next;
+            fast = fast.next.next;
+            
+        }
+    
+      ListNode mide = slow.next;
+      slow.next = null;
+        return mide;
+  }
+    }

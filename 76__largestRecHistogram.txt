@@ -1,0 +1,20 @@
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int len = heights.length;
+        Stack<Integer> s = new Stack<>();
+        int maxArea = 0;
+        for (int i = 0; i <= len; i++){   // we are using equals to len that means after array                                               //value is increasing and over then we create a dummy                                            //value 0 for the else condition below to run;
+            
+            int h = (i == len ? 0 : heights[i]);  //here we make the dummy value 0;
+            
+            if (s.isEmpty() || h >= heights[s.peek()]) {
+                s.push(i);       // we are storing index not values;
+            } else {
+                int tp = s.pop();
+                maxArea = Math.max(maxArea, heights[tp] * (s.isEmpty() ? i : i - 1 - s.peek()));
+                i--;
+            }
+        }
+        return maxArea;
+    }
+}
