@@ -1,0 +1,26 @@
+//same approach as of previous just don't take the elements more than once;
+
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(candidates);
+        backtrack(list, new ArrayList<>(),0,target,candidates);
+        return list;
+    }
+    
+    private void backtrack(List<List<Integer>> list,ArrayList<Integer> alist,int start,int target, int[] nums){
+        if(target < 0) return;
+        
+        else if(target == 0) list.add(new ArrayList<>(alist));
+        
+        else{
+            
+            for(int i=start; i<nums.length; i++){
+                if(i > start && nums[i] == nums[i-1]) continue;    //helps to skip repeated , i>start helps to take if a no. is same but at another index i.e. we consider it as a new no. and take it.
+                alist.add(nums[i]);
+                backtrack(list,alist,i+1,target-nums[i],nums);   //i+1 to not take more than once.
+                alist.remove(alist.size()-1);
+            }
+        }
+    }
+}

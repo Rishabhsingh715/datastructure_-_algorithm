@@ -1,0 +1,27 @@
+  //couldn't found a solution using 2- pointer. Using dummy variable is the best approach i found so far to
+  solve this problem.It is better than the recursive solution because it saves stack space.
+ 
+public class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode head = new ListNode(0);
+        ListNode handler = head;  // it is the dummy variable here;
+        while(l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                handler.next = l1;
+                l1 = l1.next;
+            } else {
+                handler.next = l2;
+                l2 = l2.next;
+            }
+            handler = handler.next;
+        }
+        
+        if (l1 != null) {
+            handler.next = l1;
+        } else if (l2 != null) {
+            handler.next = l2;
+        }
+        
+        return head.next;
+    }
+}

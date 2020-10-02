@@ -1,0 +1,91 @@
+class Solution {
+    public void solveSudoku(char[][] board) {
+        
+        boolean f = solve(board);
+    }
+    
+    static boolean canPlace(char[][] sud,int row,int col,int num) {
+	
+		if(!rowSafe(sud,row,num)) {
+			return false;
+		}
+		if(!colSafe(sud,col,num)) {
+			return false;
+		}
+		if(!boxSafe(sud,row,col,num)) {
+			return false;
+		}
+		return true;
+	}
+	
+    private static boolean boxSafe(char[][] sud, int row, int col, int num) {
+		// TODO Auto-generated method stub
+        int n = sud.length;
+    	int s = (int) Math.sqrt(n);                //typecasting because it returns double value
+        int sb = (int) Math.sqrt(sud[0].length);
+    	int rs = row - row % s;
+    	int cs = col - col % sb;
+    	for(int i=rs; i<rs+s; i++) {
+    		for(int j=cs; j<cs+s; j++) {
+                char cc = (char)(num+'0');
+    			if(sud[i][j] == cc) {
+    				return false;
+    			}
+    		}
+    	}
+		return true;
+	}
+
+	private static boolean colSafe(char[][] sud, int col, int num) {
+		// TODO Auto-generated method stub
+		for(int i=0; i<sud.length; i++) {
+            char cc = (char)(num+'0');
+			if(sud[i][col] == cc) {
+				return false;
+			}
+		}
+		return true;
+		
+	}
+
+	private static boolean rowSafe(char[][] sud, int row, int num) {
+		// TODO Auto-generated method stub
+		for(int i=0; i<sud[0].length; i++) {
+            char cc = (char)(num+'0');
+			if(sud[row][i] == cc) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	static boolean solve(char[][] sud) {
+    	int row = -1;
+    	int col = -1;
+    	boolean isEmpty = false;
+    	
+    	for(int i=0; i<sud.length; i++) {                    //checks for the empty places where we have to fill the char.
+    		for(int j=0;j<sud[0].length; j++) {
+    			if(sud[i][j] == '.') {
+    				row = i;
+    				col = j;
+    				isEmpty = true;
+    				break;
+    			}
+    		}if(isEmpty) break;
+    	}
+    	if(!isEmpty) return true;
+    	
+    	for(int num =1; num<=9; num++) {               //fill char 1 to 9 if possible at the places.
+    		if(canPlace(sud,row,col,num)) {         //if can place a no. otherwise check for another no num+1;
+                char cc = (char)(num+'0');
+    			sud[row][col] = cc;
+    			if(solve(sud)) {            //i think helps to move further to check for next empty place and fill it. if problem found then it means there is problem before so need to backtrack so we move back but after making it '.' again.
+    				return true;
+    			}
+    			sud[row][col] = '.';  //now when we iterate, we found this '.' and we solve it;          
+    			}
+    	}
+    	return false; 
+    }
+}
