@@ -1,0 +1,24 @@
+
+
+
+// new and improved method using hashing.
+
+
+
+
+       class Solution {
+    public int[] twoSum(int[] nums, int target) {
+    
+       HashMap<Integer, Integer> hs = new HashMap<>();
+        
+        for(int i=0; i<nums.length; i++){
+            int temp = target - nums[i];
+            
+            if(hs.containsKey(temp)){
+                return new int[] {hs.get(temp),i};        //declaring and initializing an array of size 2;
+            }
+            hs.put(nums[i],i);
+        }
+        return new int[] {};
+    }
+}

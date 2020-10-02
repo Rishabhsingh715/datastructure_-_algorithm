@@ -1,0 +1,26 @@
+class Solution {
+    public int longestConsecutive(int[] nums) {
+       HashSet<Integer> ss = new HashSet<Integer>();
+        
+        for(int i=0; i<nums.length; i++){
+            ss.add(nums[i]);
+        }
+        int ans = 0;
+        
+        for(int i=0; i<nums.length; i++){
+            
+            if(!ss.contains(nums[i]-1)){     //this code finds a value which is a starting point and then it checks for consecutive values after it. And remember them in count then in ans.
+                int count = 0;
+                int j = nums[i];
+                
+                while(ss.contains(j)){                
+                    count++;
+                    j++;
+                }
+                if(ans<count){
+                    ans = count;
+                }
+            }
+        } return ans;
+    }
+}

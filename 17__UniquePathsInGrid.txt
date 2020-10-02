@@ -1,0 +1,9 @@
+//refer gfg
+
+3 methods;
+
+1. Recursion solution space and time complexity high.
+
+2. DP solution optimized for recursion.
+
+3. Using maths i.e. permutation and combination.

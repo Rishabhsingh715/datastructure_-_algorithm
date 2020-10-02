@@ -1,0 +1,26 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode fastPointer = head;
+        ListNode slowPointer = head;
+        
+        if(head != null){
+        while(fastPointer != null && fastPointer.next != null){   //we are checking that if fast.next != null that means when we check fast.next.next it can point to null value (ending value of list) not to garbage and return exception;
+            fastPointer = fastPointer.next.next;
+            slowPointer = slowPointer.next;
+        }
+            
+     
+        }
+        return slowPointer;
+    }
+}

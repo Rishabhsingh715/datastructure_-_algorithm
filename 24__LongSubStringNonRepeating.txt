@@ -1,0 +1,21 @@
+
+// efficient solution seen from the leetcode solutions.
+
+// we update the range as we found unique elements. As we found a new element, i and j helps to create a new string and we grow this string until we found a repeated character and make new string
+// again. During all these we keep track of the longest substring. i and j helps to find len of substrings
+
+public class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length(), ans = 0;
+        Map<Character, Integer> map = new HashMap<>(); 
+       
+        for (int j = 0, i = 0; j < n; j++) {
+            if (map.containsKey(s.charAt(j))) {           
+                i = Math.max(map.get(s.charAt(j)), i);   //i help to start the new substring because we keep track of the index where we visited this repeated element.
+            }
+            ans = Math.max(ans, j - i + 1);        // calculating len of substring. Since we added index+1 in below line. Here we have to add extra 1 while finding len of the substring.
+            map.put(s.charAt(j), j + 1);         // we are adding j+1(index+1) to handle the corner cases.
+        }
+        return ans;
+    }
+}

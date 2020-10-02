@@ -1,0 +1,20 @@
+
+//this function also checks for -ve powers;
+
+
+//
+
+ class Solution {
+    public double myPow(double x, int n) {
+
+        if (n == 0) return 1;
+
+        if (n < 0){                 // this checks for the -ve values.
+            x = 1/x;
+            return (n %2 == 0) ? myPow(x*x, -(n/2)) : x*myPow(x*x, -(n/2));       //here we make x=1/x once and n +ve. Thus power becomes +ve but x comes into the fractions.
+        }
+
+        return (n %2 == 0) ? myPow(x*x, n/2) : x*myPow(x*x, n/2);        //it checks for even and odd values.
+    }
+}
+    

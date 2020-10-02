@@ -1,0 +1,5 @@
+Didn't get the solution clearly using the hashing approach.
+
+The approach i was using is giving repeated values;
+
+we will see this later;

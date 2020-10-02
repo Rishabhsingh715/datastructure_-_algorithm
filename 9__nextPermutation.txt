@@ -1,0 +1,39 @@
+EXPLANATION IS IN THE REGISTER           OK OK OK
+
+
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int index = Integer.MAX_VALUE;
+        for(int i=nums.length-1; i>=1;  i--){
+            if(nums[i] <= nums[i-1]){
+                continue;
+            }else{
+              index = i-1;
+                break;
+            }
+        }
+        if(index == Integer.MAX_VALUE){   //if it is the last permutation then we have to re- sort the array into increasing order. It is a corner case.
+            Arrays.sort(nums);
+            
+            return ;
+        }
+        int dd = nums[index];
+        int gg = Integer.MAX_VALUE;
+        int  index2 = 0;
+        for(int j=index+1; j<nums.length; j++){
+            if(nums[j]>dd && nums[j] <gg ){
+             gg = nums[j];
+             index2 = j;
+             
+                }
+        }
+        // lets swap 
+        nums[index] = gg;
+        nums[index2] = dd;
+        
+        //Now sort the remaining array
+
+        Arrays.sort(nums,index+1,nums.length);
+        
+    }
+}

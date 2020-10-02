@@ -1,0 +1,84 @@
+
+
+
+// Similar to problem no. 27;
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+--------------> Ist method Recursive approach
+class Solution {
+    public ListNode mergeTwoLists(ListNode headA, ListNode headB) {
+     
+          if (headA == null && headB == null) return null;
+    else if (headA == null) return headB;
+    else if (headB == null) return headA;
+    
+    if(headA.val <= headB.val)
+        headA.next = mergeTwoLists(headA.next, headB);
+    else {
+        ListNode temp = headB;     //add headB in temp;
+        headB = headB.next;       //make headB point to next of headB;
+        temp.next = headA;    // temp.next to point headA;  //it helps to pass headA into next recursive step;
+        headA = temp;         // make temp headA i.e. make headB headA
+        headA.next = mergeTwoLists(headA.next, headB); // Again check the whole;
+    }
+    return headA;
+        
+    }     
+        
+    }
+
+ -------->   2nd method  it is similar to the problem no. 27. This method is good to do this;
+    
+    Non- Recursive approach to solve the problem. Thus,save stack space which becomes O(n) in above
+         recursive approach.
+
+    This approach uses one pointer and one dummy node;
+
+class Gfg 
+{ 
+
+Node sortedMerge(Node headA, Node headB) 
+{ 
+	Node dummyNode = new Node(0); 
+	Node tail = dummyNode; 
+	
+	while(true) 
+	{ 
+		if(headA == null) 
+		{ 
+			tail.next = headB; 
+			break; 
+		} 
+		if(headB == null) 
+		{ 
+			tail.next = headA; 
+			break; 
+		} 
+		if(headA.data <= headB.data) 
+		{ 
+			tail.next = headA; 
+			headA = headA.next; 
+		} 
+		else
+		{ 
+			tail.next = headB; 
+			headB = headB.next; 
+		} 
+		tail = tail.next; 
+	} 
+	return dummyNode.next; 
+} 
+} 
+
+

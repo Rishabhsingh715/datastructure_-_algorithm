@@ -1,0 +1,25 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        if(prices.length == 1 || prices.length == 0){
+            return 0;
+        }
+        int max = prices[1]-prices[0];
+        int min_element = prices[0];
+        int i=0;
+        for(i=1; i<prices.length; i++){
+            
+            if(max < prices[i]-min_element){
+                max = prices[i] - min_element;
+                
+            }
+            if(prices[i] < min_element){
+                min_element = prices[i];
+            }
+            
+        }
+        if(max < 0){
+            max = 0;
+        }
+         return max; 
+    }
+}

@@ -1,0 +1,39 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+//doing it in one pass, already did it, but it was with 2 pass and one pointer. see leetcode submission or hackerrank for ist;
+
+// Now with one pass and two pointer;
+
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);  // used to handle some corner cases;
+                                           // such as a list with only one node, or
+					   //removing the head of the list.
+                                           
+        dummy.next = head;
+        ListNode first = dummy;
+        ListNode second = dummy;
+        
+        for(int i=1; i<=n+1; i++){
+            first = first.next;
+        }
+        
+        while(first != null){
+            first = first.next;
+            second = second.next;
+            
+        }
+        second.next = second.next.next;
+        return dummy.next;                       //don't know why i didn't return head; see when you got the internet connection;
+    }
+}

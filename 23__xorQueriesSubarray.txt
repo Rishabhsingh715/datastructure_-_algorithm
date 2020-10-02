@@ -1,0 +1,5 @@
+         implemented in O(n^2) time;
+         
+         can do eith hashing in O(n).
+    
+          will do this later;
